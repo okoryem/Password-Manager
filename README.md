@@ -64,14 +64,12 @@ Below are visual examples of how the application works:
 
 1. **Set Master Password**
    - Displays the interface for setting the master password.
-![Uploading Screen Shot 2025-01-11 at 6.12.21 PM.png…]()
+<img width="262" alt="Screen Shot 2025-01-11 at 6 12 21 PM" src="https://github.com/user-attachments/assets/2cc8f034-b5a0-450c-9974-5c7807dae166" />
 <img width="312" alt="Screen Shot 2025-01-11 at 6 12 55 PM" src="https://github.com/user-attachments/assets/3922f4ca-b658-4f71-9f54-0ec153989984" />
+      - Error displays if the passwords don't match
+<img width="260" alt="Screen Shot 2025-01-11 at 6 13 09 PM" src="https://github.com/user-attachments/assets/d3db339a-dbfc-46bd-9db6-012b3e2b99d8" />
 
    
-   
-
-
-
 2. **Get Master Password**
    - Shows the prompt for entering the master password to access the application.
 
