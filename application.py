@@ -2,7 +2,7 @@ import tkinter as tk
 import customtkinter as ctk
 from tkinter import messagebox, END
 from customtkinter import CTkFont
-#from password_class import Information, HashMapPassword
+import sqlite3
 import pysqlcipher3.dbapi2 as sqlite
 import json, os, sys
 from dotenv import load_dotenv, set_key
@@ -10,7 +10,7 @@ from dotenv import load_dotenv, set_key
 
 
 load_dotenv("key.env")
-KEY = os.getenv('KEY')
+KEY = None
 
 class Information:
     def __init__(self, name, website, username, password):
@@ -114,6 +114,7 @@ class PasswordButton():
     
     def displayInfo(self):
         name = self.getTitle()
+        global KEY
 
         conn = sqlite.connect("passwords.db")
         conn.execute(f"PRAGMA key = '{KEY}';")
@@ -128,7 +129,9 @@ class PasswordButton():
 
             # Gets data and converts it into a python dictionary from a json
             json_data = cursor.fetchone()[0]
+            # print(json_data)
             loadedInformation = json.loads(json_data)
+            # print(loadedInformation)
 
             conn.commit()
             conn.close()
@@ -145,7 +148,8 @@ class PasswordButton():
 
     def deleteInfo(self):
         name = self.getTitle()
-        
+        global KEY
+
         conn = sqlite.connect("passwords.db")
         conn.execute(f"PRAGMA key = '{KEY}';")
         cursor = conn.cursor()
@@ -189,6 +193,8 @@ class PasswordButton():
         # Checks that all entry boxes are filled
         if new_name and name and website and username and password:
             conn = sqlite.connect("passwords.db")
+            global KEY
+
             conn.execute(f"PRAGMA key = '{KEY}';")
             cursor = conn.cursor()
 
@@ -201,7 +207,6 @@ class PasswordButton():
                 result_new = cursor.fetchone()
 
                 if result_new is None:
-
                     # Creates information object with information from entry boxes
                     newInformation = Information(new_name, website, username, password)
 
@@ -209,6 +214,7 @@ class PasswordButton():
                     json_data = json.dumps(newInformation.getDict())
 
                     conn = sqlite.connect("passwords.db")
+
                     conn.execute(f"PRAGMA key = '{KEY}';")
                     cursor = conn.cursor()
 
@@ -247,13 +253,18 @@ class PasswordApp():
         self.root = tk.Tk()
         self.root.withdraw()
 
+        # print(KEY)
 
         if not os.path.isfile("passwords.db") and not KEY:
             answer = messagebox.askokcancel("Welcome", "Thank you for using Password Manager. In order you use the application you must set up a master password.")
+            messagebox.showinfo("Restart", "After setting the Master Password the Application will close. Please Restart the App to use it.")
             if answer == 1:
                 self.showSetMasterPasswordWindow()
+                load_dotenv("key.env")
+                KEY = os.getenv('KEY')
                 self.showMasterPasswordWindow()
                 self.showMainWindow()
+                sys.exit()
             else:
                 sys.exit()
         else:
@@ -287,26 +298,24 @@ class PasswordApp():
 
 
     def checkMatchingPassword(self):
+        global KEY
         password1 = self.setMasterPassword.get().strip()
-        password2 = self.retypeMasterPassword.get().strip()
+        password2 = self.retypeMasterPassword.get()
 
         if password1 and password2:
 
             if password1 != password2:
                 messagebox.showerror("Passwords Don't Match", "Passwords Don't Match")
             else:
-                global KEY
                 env_file = "key.env"
-                '''
                 clean_password = password1.replace('"', '').replace("'", "")
                 with open(env_file, 'w') as file:
                     file.write(f"KEY={clean_password}\n")
-                '''
+
                 set_key(env_file, "KEY", password1)
-                load_dotenv(env_file)
                 self.setMaster.destroy()
-                self.showMasterPasswordWindow()
                 KEY = password1
+                self.showMasterPasswordWindow()
         else:
             messagebox.showerror("Input Error", "Please Fill Out All Entries")
 
@@ -337,12 +346,7 @@ class PasswordApp():
 
     def checkPassword(self):
         global KEY
-
-        '''
-        new_env_file = "key.env"
-        load_dotenv(new_env_file)
-        KEY = os.getenv('KEY')
-        '''
+        env_file = "key.env"
         enteredPassword = self.masterPassword.get()
 
         if enteredPassword != KEY:
@@ -358,7 +362,7 @@ class PasswordApp():
 
                     
     def showMainWindow(self):
-
+        global KEY
         if KEY:
             conn = sqlite.connect("passwords.db")
             conn.execute(f"PRAGMA key = '{KEY}';")
@@ -533,6 +537,7 @@ class PasswordApp():
             self.delete_button()
 
     def create_new_button(self):
+        global KEY
         name = self.password_name.get()
         website = self.password_website.get()
         username = self.password_username.get()
@@ -553,9 +558,11 @@ class PasswordApp():
 
                 # Stores the information given in a new information object
                 newInformation = Information(name, website, username, password)
+                # print(newInformation.getName())
 
                 # Converts information into a json
                 json_data = json.dumps(newInformation.getDict())
+                # print(json_data)
 
                 conn = sqlite.connect("passwords.db")
                 conn.execute(f"PRAGMA key = '{KEY}';")
@@ -591,6 +598,7 @@ class PasswordApp():
 
 
     def delete_button(self):
+        global KEY
         name = self.password_name.get()
 
         conn = sqlite.connect("passwords.db")
@@ -631,6 +639,7 @@ class PasswordApp():
         
 
     def change_button_info(self):
+        global KEY
         new_name = self.password_new_name.get()
         old_name = self.password_name.get()
         website = self.password_website.get()
@@ -666,7 +675,8 @@ class PasswordApp():
 
                     button = self.buttonMap.pop(old_name, None)
                     if button:
-                        button.newbutton.configure(fg_color="blue")
+                        # print(f"Checking button: {button}")
+                        # print(f"Found button: {button.newbutton}")
                         button.setText(f"{new_name}")
                         button.setTitle(new_name)
                         self.buttonMap[new_name] = button
@@ -676,7 +686,9 @@ class PasswordApp():
                         self.password_website.delete(0, END)
                         self.password_username.delete(0, END)
                         self.password_password.delete(0, END)
-
+                    else:
+                        # print("Button not found")
+                        ...
 
                 else:
                     messagebox.showerror("Password already exist", f"{new_name} already exist")
@@ -693,6 +705,7 @@ class PasswordApp():
             messagebox.showerror("Input Error", "Please Fill Out All Entries")
 
     def display_button_info(self):
+        global KEY
         name = self.password_name.get()
 
         conn = sqlite.connect("passwords.db")
