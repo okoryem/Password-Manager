@@ -64,8 +64,9 @@ Below are visual examples of how the application works:
 
 1. **Set Master Password**
    - Displays the interface for setting the master password.
-   - ![Uploading Screen Shot 2025-01-11 at 6.12.21 PM.png…]()
-   - <img width="312" alt="Screen Shot 2025-01-11 at 6 12 55 PM" src="https://github.com/user-attachments/assets/5570b9f4-505f-4539-8304-beb82d387d93" />
+![Uploading Screen Shot 2025-01-11 at 6.12.21 PM.png…]()
+<img width="312" alt="Screen Shot 2025-01-11 at 6 12 55 PM" src="https://github.com/user-attachments/assets/3922f4ca-b658-4f71-9f54-0ec153989984" />
+
    
    
 
