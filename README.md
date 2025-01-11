@@ -65,22 +65,42 @@ Below are visual examples of how the application works:
 1. **Set Master Password**
    - Displays the interface for setting the master password.
 <img width="262" alt="Screen Shot 2025-01-11 at 6 12 21 PM" src="https://github.com/user-attachments/assets/2cc8f034-b5a0-450c-9974-5c7807dae166" />
+
 <img width="312" alt="Screen Shot 2025-01-11 at 6 12 55 PM" src="https://github.com/user-attachments/assets/3922f4ca-b658-4f71-9f54-0ec153989984" />
+
       - Error displays if the passwords don't match
+      
 <img width="260" alt="Screen Shot 2025-01-11 at 6 13 09 PM" src="https://github.com/user-attachments/assets/d3db339a-dbfc-46bd-9db6-012b3e2b99d8" />
 
    
 2. **Get Master Password**
    - Shows the prompt for entering the master password to access the application.
 
-3. **Main Window (No Passwords)**
-   - The main interface when no passwords are stored.
+<img width="302" alt="Screen Shot 2025-01-11 at 6 12 55 PM" src="https://github.com/user-attachments/assets/b9f6d8fb-ec60-43be-b23a-969a758dad38" />
 
-4. **Main Window (With Passwords)**
+      - Error displays if the password is incorrect
+
+<img width="261" alt="Screen Shot 2025-01-11 at 6 13 26 PM" src="https://github.com/user-attachments/assets/ab97b6e1-1126-42c7-8106-eeedcfc5d49a" />
+
+
+
+3. **Main Window**
    - The main interface displaying stored passwords as buttons.
 
-5. **Password Info Popup**
+<img width="599" alt="Screen Shot 2025-01-11 at 6 13 47 PM" src="https://github.com/user-attachments/assets/a1b04c45-7ee1-4a76-a01f-0a0ca4fe615f" />
+
    - Shows the popup with details of a specific password entry.
+
+<img width="890" alt="Screen Shot 2025-01-11 at 6 15 27 PM" src="https://github.com/user-attachments/assets/8972ed66-f987-404c-81d2-c3ae5af48945" />
+
+   - Ability to Change the Password Information
+
+<img width="601" alt="Screen Shot 2025-01-11 at 6 17 20 PM" src="https://github.com/user-attachments/assets/16fcea27-ea1d-4570-bef4-69efa73f09da" />
+
+   - Ability to delete stored Passwords
+
+<img width="897" alt="Screen Shot 2025-01-11 at 6 17 46 PM" src="https://github.com/user-attachments/assets/7561104f-1f33-4f8f-83ce-2653f67a2a6d" />
+
 
 ### Video Demonstration
 
@@ -95,9 +115,6 @@ Below are visual examples of how the application works:
 
 Feel free to fork this repository and contribute to its development by submitting pull requests. Any feedback or suggestions are welcome!
 
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
 
 ## Acknowledgments
 
